@@ -1,17 +1,10 @@
-// app/notes/page.tsx
-
-import NoteList from "@/components/NoteList/NoteList";
 import { getNotes } from "@/lib/api";
+import NotesClient from "./Notes.client";
 
 const Notes = async () => {
-  const response = await getNotes();
+  const data = await getNotes();
 
-  return (
-    <section>
-      <h1>Notes List</h1>
-      {response?.notes?.length > 0 && <NoteList notes={response.notes} />}
-    </section>
-  );
+  return <NotesClient initialData={data} />;
 };
 
 export default Notes;

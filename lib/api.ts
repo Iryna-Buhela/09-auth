@@ -1,5 +1,3 @@
-// lib/api.ts
-
 import axios from "axios";
 import { type Note } from "@/types/note";
 
@@ -50,11 +48,11 @@ export interface CreateNoteParams {
 }
 
 export async function createNote(data: CreateNoteParams): Promise<Note> {
-  const response = await axios.post<Note>("/notes", data);
+  const response = await axios.post<Note>("/notes", data, { headers });
   return response.data;
 }
 
 export async function deleteNote(id: string): Promise<Note> {
-  const response = await axios.delete<Note>(`/notes/${id}`);
+  const response = await axios.delete<Note>(`/notes/${id}`, { headers });
   return response.data;
 }

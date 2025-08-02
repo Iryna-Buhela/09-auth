@@ -8,11 +8,15 @@ import { getNotes, type FetchNotesResponse } from "@/lib/api";
 import NoteList from "@/components/NoteList/NoteList";
 import Pagination from "@/components/Pagination/Pagination";
 import SearchBox from "@/components/SearchBox/SearchBox";
-import NoteModal from "@/components/Modal/NoteModal";
+import NoteModal from "@/components/Modal/Modal";
 import NoteForm from "@/components/NoteForm/NoteForm";
-import css from "./NoteDetails.client.module.css";
+import css from "./Notes.client.module.css";
 
-export default function NotesClient() {
+interface NotesClientProps {
+  initialData: FetchNotesResponse;
+}
+
+export default function NotesClient({ initialData }: NotesClientProps) {
   const [page, setPage] = useState(1);
   const PER_PAGE = 12;
 
@@ -26,6 +30,7 @@ export default function NotesClient() {
     queryFn: () =>
       getNotes({ page, perPage: PER_PAGE, search: debouncedSearch }),
     placeholderData: keepPreviousData,
+    initialData: page === 1 && debouncedSearch === "" ? initialData : undefined,
   });
 
   const handlePageChange = ({ selected }: { selected: number }) => {
