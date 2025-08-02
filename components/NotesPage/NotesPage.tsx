@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import css from "./NotesPage.module.css";
 import type { Note } from "@/types/note";
 
