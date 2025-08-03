@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import ReactDOM from "react-dom";
+import { createPortal } from "react-dom";
 import css from "./Modal.module.css";
 
 interface ModalProps {
@@ -33,11 +33,10 @@ export default function Modal({ onClose, children }: ModalProps) {
 
   const modalRoot = document.getElementById("modal-root");
   if (!modalRoot) {
-    console.error('❌ No element with id="modal-root" found in index.html');
     return null;
   }
 
-  return ReactDOM.createPortal(
+  return createPortal(
     <div
       className={css.backdrop}
       onClick={handleBackdropClick}
@@ -46,6 +45,6 @@ export default function Modal({ onClose, children }: ModalProps) {
     >
       <div className={css.modal}>{children}</div>
     </div>,
-    modalRoot
+    document.body
   );
 }
