@@ -1,5 +1,5 @@
 import { getNotes } from "@/lib/api";
-import NotesClient from "./Notes.client";
+import NotesClient from "./filter/[...slug]/Notes.client";
 
 const Notes = async () => {
   const data = await getNotes();

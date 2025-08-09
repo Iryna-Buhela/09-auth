@@ -14,9 +14,10 @@ import css from "./Notes.client.module.css";
 
 interface NotesClientProps {
   initialData: FetchNotesResponse;
+  tag?: string;
 }
 
-export default function NotesClient({ initialData }: NotesClientProps) {
+export default function NotesClient({ initialData, tag }: NotesClientProps) {
   const [page, setPage] = useState(1);
   const PER_PAGE = 12;
 
@@ -28,7 +29,12 @@ export default function NotesClient({ initialData }: NotesClientProps) {
   const { data } = useQuery<FetchNotesResponse, Error>({
     queryKey: ["notes", page, debouncedSearch],
     queryFn: () =>
-      getNotes({ page, perPage: PER_PAGE, search: debouncedSearch }),
+      getNotes({
+        page,
+        perPage: PER_PAGE,
+        search: debouncedSearch,
+        ...(tag && tag !== "All" ? { tag } : {}),
+      }),
     placeholderData: keepPreviousData,
     initialData: page === 1 && debouncedSearch === "" ? initialData : undefined,
   });

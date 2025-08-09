@@ -13,6 +13,7 @@ export interface FetchNotesParams {
   page?: number;
   perPage?: number;
   search?: string;
+  tag?: string;
 }
 
 export interface FetchNotesResponse {
@@ -24,6 +25,7 @@ export const getNotes = async ({
   page = 1,
   perPage = 10,
   search = "",
+  tag,
 }: FetchNotesParams = {}): Promise<FetchNotesResponse> => {
   const res = await axios.get<FetchNotesResponse>("/notes", {
     headers,
@@ -31,6 +33,7 @@ export const getNotes = async ({
       page,
       perPage,
       search,
+      ...(tag ? { tag } : {}),
     },
   });
   return res.data;
@@ -56,3 +59,7 @@ export async function deleteNote(id: string): Promise<Note> {
   const response = await axios.delete<Note>(`/notes/${id}`, { headers });
   return response.data;
 }
+
+export const getTags = async (): Promise<string[]> => {
+  return ["Work", "Personal", "Meeting", "Shopping", "Todo"];
+};
