@@ -60,6 +60,11 @@ export async function deleteNote(id: string): Promise<Note> {
   return response.data;
 }
 
-export const getTags = async (): Promise<string[]> => {
-  return ["Work", "Personal", "Meeting", "Shopping", "Todo"];
-};
+export async function getTags(): Promise<string[]> {
+  const response = await axios.get<FetchNotesResponse>("/notes", { headers });
+
+  const tags = response.data.notes.map((note) => note.tag);
+  const uniqueTags = Array.from(new Set(tags));
+
+  return ["All", ...uniqueTags];
+}

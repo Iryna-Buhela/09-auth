@@ -8,11 +8,11 @@ interface NotesLayoutProps {
 
 export default function NotesLayout({ children }: NotesLayoutProps) {
   return (
-    <div className={css.container}>
+    <section className={css.container}>
       <aside className={css.sidebar}>
         <SidebarNotes />
       </aside>
-      <main className={css.notesWrapper}>{children}</main>
-    </div>
+      <div className={css.notesWrapper}>{children}</div>
+    </section>
   );
 }

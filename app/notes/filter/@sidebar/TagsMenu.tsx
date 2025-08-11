@@ -8,6 +8,7 @@ import css from "./TagsMenu.module.css";
 
 export default function TagsMenu() {
   const [open, setOpen] = useState(false);
+
   const { data: tags = [] } = useQuery({
     queryKey: ["tags"],
     queryFn: getTags,
@@ -24,10 +25,10 @@ export default function TagsMenu() {
 
       {open && (
         <ul className={css.menuList}>
-          {tags.map((tag) => (
+          {tags.map((tag: string) => (
             <li key={tag} className={css.menuItem}>
               <Link
-                href={tag === "All" ? "/notes/filter" : `/notes/filter/${tag}`}
+                href={tag === "All" ? "/notes" : `/notes/filter/${tag}`}
                 className={css.menuLink}
                 onClick={() => setOpen(false)}
               >

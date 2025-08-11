@@ -1,6 +1,6 @@
 // components/Header/Header.tsx
 
-import TagsMenu from "../TagsMenu/TagsMenu";
+import TagsMenu from "../../app/notes/filter/@sidebar/TagsMenu";
 import css from "./Header.module.css";
 import Link from "next/link";
 
