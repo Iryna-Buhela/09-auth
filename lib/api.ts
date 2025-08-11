@@ -66,5 +66,5 @@ export async function getTags(): Promise<string[]> {
   const tags = response.data.notes.map((note) => note.tag);
   const uniqueTags = Array.from(new Set(tags));
 
-  return ["All", ...uniqueTags];
+  return [...uniqueTags];
 }
