@@ -4,6 +4,7 @@ import SidebarNotes from "./@sidebar/default";
 
 interface NotesLayoutProps {
   children: ReactNode;
+  sidebar: React.ReactNode;
 }
 
 export default function NotesLayout({ children }: NotesLayoutProps) {
