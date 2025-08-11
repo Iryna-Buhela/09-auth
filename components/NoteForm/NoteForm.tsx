@@ -8,7 +8,7 @@ import { createNote } from "@/lib/api";
 interface NoteFormValues {
   title: string;
   content: string;
-  tag?: string;
+  tag: string;
 }
 
 interface NoteFormProps {
