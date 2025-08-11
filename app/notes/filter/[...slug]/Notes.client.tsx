@@ -27,7 +27,7 @@ export default function NotesClient({ initialData, tag }: NotesClientProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data } = useQuery<FetchNotesResponse, Error>({
-    queryKey: ["notes", page, debouncedSearch],
+    queryKey: ["notes", page, debouncedSearch, tag],
     queryFn: () =>
       getNotes({
         page,
@@ -36,7 +36,10 @@ export default function NotesClient({ initialData, tag }: NotesClientProps) {
         ...(tag && tag !== "All" ? { tag } : {}),
       }),
     placeholderData: keepPreviousData,
-    initialData: page === 1 && debouncedSearch === "" ? initialData : undefined,
+    initialData:
+      page === 1 && debouncedSearch === "" && (!tag || tag === "All")
+        ? initialData
+        : undefined,
   });
 
   const handlePageChange = ({ selected }: { selected: number }) => {

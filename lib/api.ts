@@ -47,7 +47,7 @@ export const fetchNoteById = async (id: string): Promise<Note> => {
 export interface CreateNoteParams {
   title: string;
   content: string;
-  tag?: string;
+  tag: string;
 }
 
 export async function createNote(data: CreateNoteParams): Promise<Note> {
