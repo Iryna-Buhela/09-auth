@@ -1,11 +1,11 @@
 "use client";
 
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDebounce } from "use-debounce";
 import Link from "next/link";
 
-import { getNotes, type FetchNotesResponse } from "@/lib/api";
+import { getNotes, getTags, type FetchNotesResponse } from "@/lib/api";
 import NoteList from "@/components/NoteList/NoteList";
 import Pagination from "@/components/Pagination/Pagination";
 import SearchBox from "@/components/SearchBox/SearchBox";
@@ -21,6 +21,11 @@ interface NotesClientProps {
 export default function NotesClient({ initialData, tag }: NotesClientProps) {
   const [page, setPage] = useState(1);
   const PER_PAGE = 12;
+
+  const [tags, setTags] = useState<string[]>([]);
+  useEffect(() => {
+    getTags().then((fetched) => setTags(fetched));
+  }, []);
 
   const [search, setSearch] = useState("");
   const [debouncedSearch] = useDebounce(search, 500);
@@ -72,7 +77,7 @@ export default function NotesClient({ initialData, tag }: NotesClientProps) {
       {data && data.notes?.length > 0 && <NoteList notes={data.notes} />}
       {isModalOpen && (
         <NoteModal onClose={() => setIsModalOpen(false)}>
-          <NoteForm onClose={() => setIsModalOpen(false)} />
+          <NoteForm tags={tags} />
         </NoteModal>
       )}
     </div>
