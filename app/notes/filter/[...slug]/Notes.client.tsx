@@ -3,6 +3,7 @@
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { useState } from "react";
 import { useDebounce } from "use-debounce";
+import Link from "next/link";
 
 import { getNotes, type FetchNotesResponse } from "@/lib/api";
 import NoteList from "@/components/NoteList/NoteList";
@@ -63,9 +64,9 @@ export default function NotesClient({ initialData, tag }: NotesClientProps) {
             currentPage={page}
           />
         )}
-        <button className={css.button} onClick={() => setIsModalOpen(true)}>
-          Create note +
-        </button>
+        <Link href="/notes/action/create" className={css.createButton}>
+          + Create note
+        </Link>
       </header>
 
       {data && data.notes?.length > 0 && <NoteList notes={data.notes} />}

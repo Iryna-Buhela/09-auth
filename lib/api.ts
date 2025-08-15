@@ -44,11 +44,11 @@ export const fetchNoteById = async (id: string): Promise<Note> => {
   return res.data;
 };
 
-export interface CreateNoteParams {
+export type CreateNoteParams = {
   title: string;
   content: string;
   tag: string;
-}
+};
 
 export async function createNote(data: CreateNoteParams): Promise<Note> {
   const response = await axios.post<Note>("/notes", data, { headers });
