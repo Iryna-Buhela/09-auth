@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import css from "./NoteForm.module.css";
 import { createNote, CreateNoteParams } from "@/lib/api";
-import { useNoteDraftStore } from "@/lib/stores/noteStore";
+import { useNoteDraftStore } from "@/lib/store/noteStore";
 
 type NoteFormProps = {
   tags: string[];
