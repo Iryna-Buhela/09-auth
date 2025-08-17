@@ -9,8 +9,6 @@ import { getNotes, getTags, type FetchNotesResponse } from "@/lib/api";
 import NoteList from "@/components/NoteList/NoteList";
 import Pagination from "@/components/Pagination/Pagination";
 import SearchBox from "@/components/SearchBox/SearchBox";
-import NoteModal from "@/components/Modal/Modal";
-import NoteForm from "@/components/NoteForm/NoteForm";
 import css from "./Notes.client.module.css";
 
 interface NotesClientProps {
@@ -22,15 +20,8 @@ export default function NotesClient({ initialData, tag }: NotesClientProps) {
   const [page, setPage] = useState(1);
   const PER_PAGE = 12;
 
-  const [tags, setTags] = useState<string[]>([]);
-  useEffect(() => {
-    getTags().then((fetched) => setTags(fetched));
-  }, []);
-
   const [search, setSearch] = useState("");
   const [debouncedSearch] = useDebounce(search, 500);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data } = useQuery<FetchNotesResponse, Error>({
     queryKey: ["notes", page, debouncedSearch, tag],
@@ -75,11 +66,6 @@ export default function NotesClient({ initialData, tag }: NotesClientProps) {
       </header>
 
       {data && data.notes?.length > 0 && <NoteList notes={data.notes} />}
-      {isModalOpen && (
-        <NoteModal onClose={() => setIsModalOpen(false)}>
-          <NoteForm tags={tags} />
-        </NoteModal>
-      )}
     </div>
   );
 }
