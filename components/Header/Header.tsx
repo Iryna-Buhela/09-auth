@@ -1,6 +1,5 @@
-// components/Header/Header.tsx
-
 import TagsMenu from "../TagsMenu/TagsMenu";
+import AuthNavigation from "../AuthNavigation/AuthNavigation";
 import css from "./Header.module.css";
 import Link from "next/link";
 
@@ -12,12 +11,13 @@ const Header = () => {
       </Link>
       <nav aria-label="Main Navigation">
         <ul className={css.navigation}>
-          <li>
+          <li className={css.navigationItem}>
             <Link href="/">Home</Link>
           </li>
-          <li>
+          <li className={css.navigationItem}>
             <TagsMenu />
           </li>
+          <AuthNavigation />
         </ul>
       </nav>
     </header>

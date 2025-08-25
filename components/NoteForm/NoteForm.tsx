@@ -4,14 +4,10 @@ import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import css from "./NoteForm.module.css";
-import { createNote, CreateNoteParams } from "@/lib/api";
+import { createNote, CreateNoteParams } from "@/lib/api/clientApi";
 import { useNoteDraftStore } from "@/lib/store/noteStore";
 
-type NoteFormProps = {
-  tags: string[];
-};
-
-export default function NoteForm({ tags }: NoteFormProps) {
+export default function NoteForm() {
   const router = useRouter();
   const queryClient = useQueryClient();
 
@@ -90,11 +86,11 @@ export default function NoteForm({ tags }: NoteFormProps) {
           defaultValue={draft?.tag}
           onChange={handleChange}
         >
-          {tags.map((t) => (
-            <option key={t} value={t}>
-              {t}
-            </option>
-          ))}
+          <option value="Todo">Todo</option>
+          <option value="Work">Work</option>
+          <option value="Personal">Personal</option>
+          <option value="Meeting">Meeting</option>
+          <option value="Shopping">Shopping</option>
         </select>
       </div>
 
