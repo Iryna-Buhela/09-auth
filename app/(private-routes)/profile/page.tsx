@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const Profile = async () => {
+export default async function ProfilePage() {
   const user = await getServerMe();
 
   return (
@@ -57,6 +57,4 @@ export const Profile = async () => {
       </div>
     </main>
   );
-};
-
-export default Profile;
+}
