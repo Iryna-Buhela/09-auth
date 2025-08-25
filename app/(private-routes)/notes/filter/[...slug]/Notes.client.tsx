@@ -18,20 +18,13 @@ interface NotesClientProps {
 
 export default function NotesClient({ initialData, tag }: NotesClientProps) {
   const [page, setPage] = useState(1);
-  const PER_PAGE = 12;
 
   const [search, setSearch] = useState("");
   const [debouncedSearch] = useDebounce(search, 500);
 
   const { data } = useQuery<FetchNotesResponse, Error>({
     queryKey: ["notes", page, debouncedSearch, tag],
-    queryFn: () =>
-      getNotes({
-        page,
-        perPage: PER_PAGE,
-        search: debouncedSearch,
-        ...(tag && tag !== "All" ? { tag } : {}),
-      }),
+    queryFn: () => getNotes(debouncedSearch, page, tag),
     placeholderData: keepPreviousData,
     initialData:
       page === 1 && debouncedSearch === "" && (!tag || tag === "All")

@@ -1,16 +1,15 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import css from "./NoteForm.module.css";
 import { createNote, CreateNoteParams } from "@/lib/api/clientApi";
 import { useNoteDraftStore } from "@/lib/store/noteStore";
+import { type NoteTag } from "@/types/note";
 
 export default function NoteForm() {
   const router = useRouter();
-  const queryClient = useQueryClient();
-
   const { draft, setDraft, clearDraft } = useNoteDraftStore();
 
   const handleChange = (
@@ -27,10 +26,9 @@ export default function NoteForm() {
   const { mutate, isPending } = useMutation({
     mutationFn: createNote,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["notes"] });
       toast.success("Note created!");
       clearDraft();
-      router.push("/notes/filter/all");
+      router.back();
     },
     onError: () => {
       toast.error("Failed to create note. Please try again.");
@@ -38,8 +36,13 @@ export default function NoteForm() {
   });
 
   const handleSubmit = (formData: FormData) => {
-    const values = Object.fromEntries(formData) as CreateNoteParams;
-    mutate(values);
+    const data: CreateNoteParams = {
+      title: formData.get("title") as string,
+      content: formData.get("content") as string,
+      tag: formData.get("tag") as NoteTag,
+    };
+
+    mutate(data);
   };
 
   return (

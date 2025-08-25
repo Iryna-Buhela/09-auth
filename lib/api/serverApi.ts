@@ -32,7 +32,7 @@ export const getServerNotes = async (
     ...(search && { search }),
     page,
     perPage: 12,
-    tag,
+    ...(tag ? { tag } : {}),
   };
   const headers = {
     Cookie: cookieStore.toString(),

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import NotesClient from "./Notes.client";
-import { getNotes } from "@/lib/api/clientApi";
+import { getServerNotes } from "@/lib/api/serverApi";
 
 type NotesPageProps = { params: Promise<{ slug?: string[] }> };
 
@@ -40,7 +40,7 @@ export default async function NotesPage({ params }: NotesPageProps) {
   const rawTag = slug?.[0];
   const tag = rawTag === "All" ? undefined : rawTag;
 
-  const initialData = await getNotes("", 1, tag);
+  const initialData = await getServerNotes("", 1, tag);
 
   return <NotesClient initialData={initialData} tag={tag} />;
 }
