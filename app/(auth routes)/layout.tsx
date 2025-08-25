@@ -8,7 +8,7 @@ interface AuthLayoutProps {
   children: ReactNode;
 }
 
-export const AuthLayout = ({ children }: AuthLayoutProps) => {
+export default function AuthLayout({ children }: AuthLayoutProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 
@@ -18,6 +18,4 @@ export const AuthLayout = ({ children }: AuthLayoutProps) => {
   }, [router]);
 
   return <>{loading ? <div>Loading...</div> : children}</>;
-};
-
-export default AuthLayout;
+}
