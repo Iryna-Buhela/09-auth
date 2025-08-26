@@ -9,7 +9,10 @@ export const checkServerSession = async () => {
   const res = await nextServer.get(`/auth/session`, {
     headers: { Cookie: cookiesData.toString() },
   });
-  return res.data;
+  return {
+    status: res.status,
+    data: res.data,
+  };
 };
 
 export const getServerMe = async (): Promise<User> => {
