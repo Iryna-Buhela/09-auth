@@ -23,7 +23,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         } else {
           clearAuthStore();
         }
-      } catch (err) {
+      } catch {
         clearAuthStore();
       }
     };
