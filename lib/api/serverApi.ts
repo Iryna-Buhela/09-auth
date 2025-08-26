@@ -12,6 +12,7 @@ export const checkServerSession = async () => {
   return {
     status: res.status,
     data: res.data,
+    headers: res.headers,
   };
 };
 
