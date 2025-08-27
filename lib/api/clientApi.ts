@@ -79,8 +79,7 @@ export const register = async (data: RegisterRequest) => {
 };
 
 export const login = async (data: LoginRequest) => {
-  const res = await nextServer.post<User>(`auth/login`, data);
-  console.log("LOGIN URL:", res.config.url);
+  const res = await nextServer.post<User>(`/auth/login`, data);
   return res.data;
 };
 
