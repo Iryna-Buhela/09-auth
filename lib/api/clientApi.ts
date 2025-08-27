@@ -20,12 +20,12 @@ export type CreateNoteParams = {
   tag: string;
 };
 
-export type RegisterRequest = {
+export type SignInRequest = {
   email: string;
   password: string;
 };
 
-export type LoginRequest = {
+export type SignUpRequest = {
   email: string;
   password: string;
 };
@@ -40,7 +40,7 @@ export interface UpdateMeRequest {
 
 export async function getNotes(search: string, page: number, tag?: string) {
   try {
-    const res = await nextServer.get("/api/notes", {
+    const res = await nextServer.get("/notes", {
       params: {
         ...(search !== "" && { search }),
         page,
@@ -58,26 +58,26 @@ export async function getNotes(search: string, page: number, tag?: string) {
 }
 
 export const fetchNoteById = async (id: string): Promise<Note> => {
-  const res = await nextServer.get<Note>(`/api/notes/${id}`);
+  const res = await nextServer.get<Note>(`/notes/${id}`);
   return res.data;
 };
 
 export async function createNote(data: CreateNoteParams): Promise<Note> {
-  const response = await nextServer.post<Note>(`/api/notes`, data);
+  const response = await nextServer.post<Note>(`/notes`, data);
   return response.data;
 }
 
 export async function deleteNote(id: string): Promise<Note> {
-  const response = await nextServer.delete<Note>(`/api/notes/${id}`);
+  const response = await nextServer.delete<Note>(`/notes/${id}`);
   return response.data;
 }
 
-export const register = async (data: RegisterRequest) => {
+export const register = async (data: SignUpRequest) => {
   const res = await nextServer.post<User>(`/auth/register`, data);
   return res.data;
 };
 
-export const login = async (data: LoginRequest) => {
+export const login = async (data: SignInRequest) => {
   const res = await nextServer.post<User>(`/auth/login`, data);
   return res.data;
 };
