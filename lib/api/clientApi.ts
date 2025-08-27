@@ -40,7 +40,7 @@ export interface UpdateMeRequest {
 
 export async function getNotes(search: string, page: number, tag?: string) {
   try {
-    const res = await nextServer.get("/notes", {
+    const res = await nextServer.get("/api/notes", {
       params: {
         ...(search !== "" && { search }),
         page,
@@ -58,17 +58,17 @@ export async function getNotes(search: string, page: number, tag?: string) {
 }
 
 export const fetchNoteById = async (id: string): Promise<Note> => {
-  const res = await nextServer.get<Note>(`/notes/${id}`);
+  const res = await nextServer.get<Note>(`/api/notes/${id}`);
   return res.data;
 };
 
 export async function createNote(data: CreateNoteParams): Promise<Note> {
-  const response = await nextServer.post<Note>(`/notes`, data);
+  const response = await nextServer.post<Note>(`/api/notes`, data);
   return response.data;
 }
 
 export async function deleteNote(id: string): Promise<Note> {
-  const response = await nextServer.delete<Note>(`/notes/${id}`);
+  const response = await nextServer.delete<Note>(`/api/notes/${id}`);
   return response.data;
 }
 
